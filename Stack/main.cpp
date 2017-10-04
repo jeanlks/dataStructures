@@ -164,13 +164,10 @@ public:
 
 int main(int argc, const char * argv[]) {
     Stack stack;
-    stack.stackUp(10);
-    stack.stackUp(100);
-    stack.stackUp(1000);
-    stack.display();
-    stack.unpack();
-    stack.display();
-    stack.unpack();
+    int m = 10000000;
+    for(int i=0; i<m;i++){
+        stack.stackUp(i);
+    }
     stack.display();
     return 0;
 }
