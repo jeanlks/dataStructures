@@ -45,6 +45,7 @@ public:
         Node<T>* p = A->p;
         
         if (A->l == B) {
+            incrementaComparacoes();
             A->setL(B->r);
             B->setR(A);
         } else {
@@ -63,11 +64,13 @@ public:
             Node<T>* C = A->p->p;
             
             if (B == root) {
+                incrementaComparacoes();
                 rotate(B, A);
                 break;
             }
             
             if ((C->l && C->l->l == A) || (C->r && C->r->r == A)) {
+                incrementaComparacoes();
                 rotate(C, B);
                 rotate(B, A);
             } else {
@@ -83,13 +86,15 @@ public:
         
         while (A) {
             B = A;
-            if(value== A->value){
-                
+            if(value == A->value){
+                incrementaChavesIguais();
             }
-            if (value < A->value)
+            if (value < A->value){
+                incrementaComparacoes();
                 A = A->l;
-            else
+            } else{
                 A = A->r;
+            }
         }
         
         Node<T>* C = new Node<T>;
@@ -98,8 +103,13 @@ public:
         if (root == nullptr) {
             root = C;
         } else {
-            if (value < B->value) B->setL(C);
-            else B->setR(C);
+            if (value < B->value){
+                incrementaComparacoes();
+                B->setL(C);
+            }
+            else{
+                B->setR(C);
+            }
             splay(C);
         }
     }
