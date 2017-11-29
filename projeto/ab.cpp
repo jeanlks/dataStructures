@@ -15,15 +15,45 @@ struct node {
 };
 
 class btree {
+private:
+    node *root = NULL;
+    int contadorComparacoes =0;
+    int contadorChavesIguais =0;
 public:
+    node *getRoot(){
+        return root;
+    }
+    void setRoot(node *r) {
+        root = r;
+    }
+    int getComparacoes() {
+        return contadorComparacoes;
+    }
+    void incrementaComparacoes(){
+        contadorComparacoes++;
+    }
+    int getContadorChavesIguais() {
+        return contadorChavesIguais;
+    }
+    void incrementaChavesIguais() {
+        contadorChavesIguais++;
+    }
+    
     node *insert_tree(node *tree,int value) {
+        
+        
+        
         if(tree == NULL){
             tree = new node;
             tree->esq = NULL;
             tree->dir = NULL;
             tree->value = value;
         }
+        else if(tree-> value == value ){
+            incrementaChavesIguais();
+        }
         else if (value < tree->value){
+            incrementaComparacoes();
             tree->esq = insert_tree(tree->esq, value);
         }
         else{
@@ -102,13 +132,4 @@ public:
     }
 };
 
-int main(int argc, const char * argv[]) {
-    node *root = NULL;
-    btree tree;
-    int m = 10000;
-    for(int i=0;i<m;i++){
-        root = tree.insert_tree(root, rand());
-    }
-    cout<< tree.height(root);
-    return 0;
-}
+
