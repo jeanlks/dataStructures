@@ -26,19 +26,12 @@ struct Splay {
     
 private:
     int contadorComparacoes =0;
-    int contadorChavesIguais =0;
 public:
     int getComparacoes() {
         return contadorComparacoes;
     }
     void incrementaComparacoes(){
         contadorComparacoes++;
-    }
-    int getContadorChavesIguais() {
-        return contadorChavesIguais;
-    }
-    void incrementaChavesIguais() {
-        contadorChavesIguais++;
     }
     
     void rotate(Node<T>* A, Node<T>* B) {
@@ -86,9 +79,6 @@ public:
         
         while (A) {
             B = A;
-            if(value == A->value){
-                incrementaChavesIguais();
-            }
             if (value < A->value){
                 incrementaComparacoes();
                 A = A->l;
@@ -96,7 +86,7 @@ public:
                 A = A->r;
             }
         }
-        
+
         Node<T>* C = new Node<T>;
         C->value = value;
         

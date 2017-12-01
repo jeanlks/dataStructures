@@ -39,20 +39,39 @@ public:
         }
         return min + rand() % (max - min);
     }
+    
     void LerValorEntrada() {
+        int MAX = 1000000 ;
         int valorEntrada;
         while (true){
-            cout << endl << "---------------------------------------------------" << endl;
+            cout << "\n-------------------------------------------------------------------------\n";
+            cout << "\n---------------------Projeto EDPA 2017-----------------------------------\n";
+            cout << "\n-------------------------------------------------------------------------\n";
             cout << "Informe o tamanho da Arvore: ";
             cin >> valorEntrada;
-            if (valorEntrada < 1 || valorEntrada > 32767){
+            if (valorEntrada < 1 || valorEntrada > MAX){
                 cout << "\n\nTamanho invalido. Tente novamente." << endl;
             } else {
                 n = valorEntrada;
                 break;
             }
         }
-        
     }
     
+    
+    void printChavesIguais(int R[], int agrupado[], int tamanhoVetor) {
+        for (int i=0; i < tamanhoVetor; i++){
+            if (R[i] > 0)
+                agrupado[R[i]]++;
+        }
+        cout << endl;
+        cout << endl;
+        cout << "Chaves" << "\t\tVezes\t\tTotal";
+        cout << endl;
+        for (int i=0; i < 10; i++){
+            if (agrupado[i] > 0){
+                cout <<agrupado[i] << "\t\t" << i << "\t\t" << (agrupado[i] * i) << endl;
+            }
+        }
+    }
 };

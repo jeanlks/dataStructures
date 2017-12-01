@@ -18,7 +18,7 @@ class btree {
 private:
     node *root = NULL;
     int contadorComparacoes =0;
-    int contadorChavesIguais =0;
+    int chavesIguais =0;
 public:
     node *getRoot(){
         return root;
@@ -26,22 +26,20 @@ public:
     void setRoot(node *r) {
         root = r;
     }
+    int getChavesIguais() {
+        return chavesIguais;
+    }
+    void incrementaChavesIguais(){
+        chavesIguais++;
+    }
     int getComparacoes() {
         return contadorComparacoes;
     }
     void incrementaComparacoes(){
         contadorComparacoes++;
     }
-    int getContadorChavesIguais() {
-        return contadorChavesIguais;
-    }
-    void incrementaChavesIguais() {
-        contadorChavesIguais++;
-    }
     
-    node *insert_tree(node *tree,int value) {
-        
-        
+    node *insert_tree(node *tree,  int value) {
         
         if(tree == NULL){
             tree = new node;
@@ -49,7 +47,7 @@ public:
             tree->dir = NULL;
             tree->value = value;
         }
-        else if(tree-> value == value ){
+        else if(tree->value == value){
             incrementaChavesIguais();
         }
         else if (value < tree->value){
