@@ -1,12 +1,14 @@
 #include <iostream>
-#include "splay.cpp"
-#include "ab.cpp"
+#include "arvoreABB.cpp"
+#include "arvoreSplay.cpp"
 #include "teste.cpp"
+#include <map>
 
 int main() {
-    int MIN= 0;
+    const int MIN= 0;
+    const int MAX_RANDOM =32767;
     Splay<int> splay;
-    btree tree;
+    Abb abbTree;
     Teste teste;
     teste.LerValorEntrada();
     teste.IniciarContagem();
@@ -18,7 +20,7 @@ int main() {
        com o mesmo conjunto de aleatorios.
      **/
     for (int i = 0; i < teste.getN(); ++i) {
-        numAleatorio = teste.random(MIN, teste.getN());
+        numAleatorio = teste.random(MIN, MAX_RANDOM);
         aleatorioAgrupado[numAleatorio]++;
         aleatorios[i] = numAleatorio;
     }
@@ -27,7 +29,7 @@ int main() {
      **/
     teste.IniciarContagem();
     for (int i = 0; i< teste.getN(); ++i) {
-        tree.setRoot(tree.insert_tree(tree.getRoot(), aleatorios[i]));
+        abbTree.setRoot(abbTree.insert_tree(abbTree.getRoot(), aleatorios[i]));
     }
     teste.FinalizarContagem();
     double tempoProcessamentoArvoreBinaria = teste.getTempoDecorrido();
@@ -44,20 +46,22 @@ int main() {
     cout << string(50, '\n');
     cout << "\n-------------------------------------------------------------------------\n";
     cout << "\nChaves Geradas: " << teste.getN();
-    cout << "\nChaves Iguais: " << tree.getChavesIguais();
+    cout << "\nChaves Iguais: " << abbTree.getChavesIguais();
     cout << "\n-------------------------------------------------------------------------\n";
     cout << "\n Tempo Processamento Arvore Binaria: " << tempoProcessamentoArvoreBinaria;
     cout << "\n Tempo Processamento Splay: " << tempoProcessamentoArvoreSplay;
     cout << "\n-------------------------------------------------------------------------\n";
-    cout << "\n Altura Arvore Binaria: " << tree.height(tree.getRoot());
+    cout << "\n Altura Arvore Binaria: " << abbTree.height(abbTree.getRoot());
     cout << "\n Altura arvore Splay: " << splay.height(splay.root);
     cout << "\n-------------------------------------------------------------------------\n";
-    cout << "\n Número de Comparacoes Arvore Binaria: " << tree.getComparacoes() << "\n";
+    cout << "\n Número de Comparacoes Arvore Binaria: " << abbTree.getComparacoes() << "\n";
     cout << "\n Número de Comparacoes Arvore Splay: " << splay.getComparacoes() << "\n";
-    cout << "\n Média de Comparacoes Arvore Binaria: " << tree.getComparacoes()/teste.getN() << "\n";
-    cout << "\n Média de Comparacoes Arvore Splay: " << splay.getComparacoes()/teste.getN()<< "\n";
+    cout << "\n Média de Comparacoes Arvore Binaria: " << (double) abbTree.getComparacoes()/teste.getN() << "\n";
+    cout << "\n Média de Comparacoes Arvore Splay: " << (double) splay.getComparacoes()/teste.getN()<< "\n";
     cout << "\n-------------------------------------------------------------------------\n";
-    teste.printChavesIguais(aleatorios,aleatorioAgrupado,teste.getN());
+     cout << "\nQuantidade de duplicados\n";
+    teste.getCountEquals(aleatorios,teste.getN());
+     cout << "\n-------------------------------------------------------------------------\n";
     return 0;
     
 }

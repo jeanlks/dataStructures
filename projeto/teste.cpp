@@ -1,5 +1,7 @@
 #include <time.h>
 #include <iostream>
+#include <map>
+#include <vector>
 
 using namespace std;
 class Teste {
@@ -57,21 +59,29 @@ public:
             }
         }
     }
-    
-    
-    void printChavesIguais(int R[], int agrupado[], int tamanhoVetor) {
-        for (int i=0; i < tamanhoVetor; i++){
-            if (R[i] > 0)
-                agrupado[R[i]]++;
-        }
-        cout << endl;
-        cout << endl;
-        cout << "Chaves" << "\t\tVezes\t\tTotal";
-        cout << endl;
-        for (int i=0; i < 10; i++){
-            if (agrupado[i] > 0){
-                cout <<agrupado[i] << "\t\t" << i << "\t\t" << (agrupado[i] * i) << endl;
-            }
-        }
+    static bool sortinrev(const pair<int,int> &a,
+                   const pair<int,int> &b)
+    {
+        return (a.second > b.second);
     }
+    
+    void getCountEquals(int R[], int number) {
+        map<int, int> counts;
+        for (int i = 0; i < number; i++) {
+            counts[R[i]]++;
+        }
+        vector<pair<int, int> > v;
+        copy(counts.begin(),
+             counts.end(),
+             back_inserter<vector<pair<int, int> > >(v));
+        
+        sort(v.begin(), v.end(), sortinrev);
+        
+        for (size_t i = 0; i < 12; ++i) {
+            cout << v[i].first << " , " << v[i].second << "\n";
+        }
+
+
+    }
+
 };

@@ -10,11 +10,11 @@
 using namespace std;
 struct node {
     int value;
-    node *esq;
-    node *dir;
+    node *left;
+    node *right;
 };
 
-class btree {
+class Abb {
 private:
     node *root = NULL;
     int contadorComparacoes =0;
@@ -43,8 +43,8 @@ public:
         
         if(tree == NULL){
             tree = new node;
-            tree->esq = NULL;
-            tree->dir = NULL;
+            tree->left = NULL;
+            tree->right = NULL;
             tree->value = value;
         }
         else if(tree->value == value){
@@ -52,10 +52,10 @@ public:
         }
         else if (value < tree->value){
             incrementaComparacoes();
-            tree->esq = insert_tree(tree->esq, value);
+            tree->left = insert_tree(tree->left, value);
         }
         else{
-            tree->dir = insert_tree(tree->dir, value);
+            tree->right = insert_tree(tree->right, value);
         }
         
         return tree;
@@ -63,16 +63,16 @@ public:
     void pre_order(node *tree) {
         if(tree!=NULL){
             cout<< tree->value <<"\n";
-            pre_order(tree->esq);
-            pre_order(tree->dir);
+            pre_order(tree->left);
+            pre_order(tree->right);
         }
     }
     
     void in_order(node* tree) {
         if(tree!=NULL){
-            in_order(tree->esq);
+            in_order(tree->left);
             cout<< tree->value <<"\n";
-            in_order(tree->dir);
+            in_order(tree->right);
         }
     }
     
@@ -80,7 +80,7 @@ public:
         if(tree == NULL) {
             return 0;
         }else {
-            return size(tree->esq) + 1 + size(tree->dir);
+            return size(tree->left) + 1 + size(tree->right);
         }
     }
     
@@ -88,8 +88,8 @@ public:
         if(tree == NULL) {
             return -1;
         }else{
-            int he = height(tree->esq);
-            int hd = height(tree->dir);
+            int he = height(tree->left);
+            int hd = height(tree->right);
             if(he<hd){
                 return hd+1;
             }else{
@@ -103,10 +103,10 @@ public:
             return tree;
         }else{
             j++;
-            if(tree->esq == NULL){
+            if(tree->left == NULL){
                 return NULL;
             }else {
-                return find_last_element_with_indice(tree->esq, i,j);
+                return find_last_element_with_indice(tree->left, i,j);
             }
         }
     }
@@ -115,15 +115,15 @@ public:
             return true;
         }
         
-        if(tree->esq != NULL && tree->esq->value > tree->value){
+        if(tree->left != NULL && tree->left->value > tree->value){
             return false;
         }
         
-        if(tree ->dir != NULL && tree->dir->value < tree->value){
+        if(tree ->right != NULL && tree->right->value < tree->value){
             return false;
         }
         
-        if(!isABB(tree->esq) || !isABB(tree->dir)){
+        if(!isABB(tree->left) || !isABB(tree->right)){
             return false;
         }
         return true;
